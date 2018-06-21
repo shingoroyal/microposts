@@ -3,7 +3,7 @@
 @section('content')
    @if (Auth::check())
         <div class="row">
-            <aside class="col-md-4">
+            <aside class="col-xs-4">
                  <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">{{ $user->name }}</h3>
