@@ -27,8 +27,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
-    
-
 
 
     public function microposts()
@@ -94,13 +92,55 @@ public function is_following($userId) {
         $follow_user_ids[] = \Auth::id();
         return Micropost::whereIn('user_id', $follow_user_ids);
     }
+    
+    
+    
+    
 
  public function favorites()
     {
-        return $this->belongsToMany(User::class, 'favorite', 'user_id', 'favo_id')->withTimestamps();
+        return $this->belongsToMany(Microposts::class, 'favorite', 'user_id', 'favo_id')->withTimestamps();
     }
     
+ public function favoru($micropostId)
+ {
+     $exist = $this->favotteru($micropostId);
+     
+     if ($exist){
+         return false;
+     }else{
+         $this->favorites()->attach($userId);
+         return true;
+     }
+ }     
+
+  public function unfavoru($micropostId)
+{
+    
+    $exist = $this->favotteru($micropostId);
+   
+
+    if ($exist) {
+        $this->favorites()->detach($micropostId);
+        return true;
+    } else {
+        // do nothing if not following
+        return false;
+    }
+} 
+
+public function favotteru($micropostId) {
+    return $this->favorites()->where('favo_id', $micropostId)->exists();
 }
+
+
+     
+     
+ }
+    
+    
+    
+
 
 
 
