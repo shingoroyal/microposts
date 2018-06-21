@@ -91,8 +91,16 @@ public function is_following($userId) {
  public function feed_microposts()
     {
         $follow_user_ids = $this->followings()-> pluck('users.id')->toArray();
-        $follow_user_ids[] = $this->id;
+        $follow_user_ids[] = \Auth::id();
         return Micropost::whereIn('user_id', $follow_user_ids);
+    }
+
+ public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorite', 'user_id', 'favo_id')->withTimestamps();
     }
     
 }
+
+
+
