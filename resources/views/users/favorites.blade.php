@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@foreach ($microposts as $micropost)
+ 
+
 @section('content')
 
     <div class="row">
@@ -12,7 +13,7 @@
                     <img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 500) }}" alt="">
                 </div>
             </div>
-        
+       
         </aside>
         
         <div class="col-xs-8">
@@ -22,9 +23,15 @@
                 <li role="presentation" class="{{ Request::is('users/*/followers') ? 'active' : '' }}"><a href="{{ route('users.followers', ['id' => $user->id]) }}">Followers <span class="badge">{{ $count_followers }}</span></a></li>
                 <li role="presentation" class="{{ Request::is('users/*/favorites') ? 'active' : '' }}"><a href="{{ route('users.favorites', ['id' => $user->id]) }}">Favorites <span class="badge">{{ $count_favorites }}</span></a></li>           
             </ul>
+
+@foreach ($microposts as $micropost)
             @include('microposts.microposts', ['micropost' => $micropost])
+ @endforeach
+           
         </div>
     </div>
 
 @endsection
-@endforeach    
+
+
+
