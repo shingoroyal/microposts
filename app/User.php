@@ -99,7 +99,7 @@ public function is_following($userId) {
 
  public function favorites()
     {
-        return $this->belongsToMany(Microposts::class, 'favorite', 'user_id', 'favo_id')->withTimestamps();
+        return $this->belongsToMany(Micropost::class, 'favorite', 'user_id', 'favo_id')->withTimestamps();
     }
     
  public function favoru($micropostId)
@@ -109,7 +109,7 @@ public function is_following($userId) {
      if ($exist){
          return false;
      }else{
-         $this->favorites()->attach($userId);
+         $this->favorites()->attach($micropostId);
          return true;
      }
  }     
